@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import Model from "./Model";
 import UserTable from "./UserTable";
+import { Button } from "react-bootstrap";
 
 export default function User() {
   useEffect(() => {
@@ -21,14 +22,14 @@ export default function User() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:30002/event", allData);
+    await axios.post("http://localhost:3002/event", allData);
     setAllData({});
     console.log(allData);
     handleClose();
     getData();
   };
   const getData = async () => {
-    const res = await axios.get("http://localhost:30002/event");
+    const res = await axios.get("http://localhost:3002/event");
     console.log(res);
     setUser(res.data);
   };
@@ -41,7 +42,7 @@ export default function User() {
   };
   const onEditData = async (e) => {
     e.preventDefault();
-    await axios.put(`http://localhost:30002/event/${allData.id}`, allData);
+    await axios.put(`http://localhost:3002/event/${allData.id}`, allData);
     setShow(false);
     getData();
   };
@@ -51,14 +52,22 @@ export default function User() {
     setEdit(false);
     setAllData({});
   };
-
+  // const handleDelete = async (id) => {
+  //   const res = await axios.delete(`http://localhost:3002/event/${id}`);
+  //   console.log(res, "pppp");
+  //   getData();
+  // };
   return (
     <div>
+      {/* <Button variant="primary" onClick={handleAdd}>
+        add
+      </Button> */}
       <UserTable
         handleUpdate={handleUpdate}
         handleAdd={handleAdd}
         show={show}
         user={user}
+        // handleDelete={handleDelete}
       />
       <Model
         handleClose={handleClose}
